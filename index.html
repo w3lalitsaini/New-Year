@@ -1,353 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy New Year Chikku ❤️</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy New Year Chikku ❤️</title>
 
-<!-- 📱 WhatsApp Preview -->
-<meta property="og:title" content="Happy New Year Chikku ❤️">
-<meta property="og:description" content="A secret midnight diary from your Alien 🛸">
-<meta property="og:image" content="preview.jpg">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="Happy New Year Chikku ❤️" />
+    <meta property="og:description" content="A secret midnight diary from your Alien 🛸" />
+    <meta property="og:image" content="preview.jpg" />
+    <meta property="og:type" content="website" />
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
 
-<style>
-:root{
-  --pink:#ff4d6d;
-  --light:#ffb3c1;
-  --bg:#0f0c29;
-}
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Montserrat",sans-serif;
-}
+    <style>
+      :root {
+        --pink: #ff4d6d;
+        --light: #ffb3c1;
+        --bg: #0f0c29;
+      }
 
-html,body{
-  height:100%;
-  background:linear-gradient(45deg,#0f0c29,#302b63,#24243e);
-  color:white;
-  overflow:hidden;
-}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+      }
 
-/* 🌌 MOVING STARS */
-#stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(5px 5px at 20% 30%, white, transparent),
-    radial-gradient(2.5px 2.5px at 70% 60%, white, transparent),
-    radial-gradient(5px 5px at 40% 80%, white, transparent),
-    radial-gradient(5px 5px at 40% 80%, white, transparent),
-    radial-gradient(5px 5px at 40% 80%, white, transparent),
-    radial-gradient(5px 5px at 40% 80%, white, transparent),
-    radial-gradient(5px 5px at 40% 80%, white, transparent),
-    radial-gradient(5px 5px at 80% 20%, white, transparent),
-    radial-gradient(5px 5px at 10% 70%, white, transparent);
-  animation:moveStars 60s linear infinite, twinkle 1s infinite alternate;
-  opacity:.6;
-  z-index:0;
-}
+      html, body {
+        height: 100%;
+        background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+        color: white;
+        overflow: hidden;
+      }
 
-@keyframes moveStars{
-  from{background-position:0 0;}
-  to{background-position:1000px 600px;}
-}
-@keyframes twinkle{
-  from{opacity:.4;}
-  to{opacity:.9;}
-}
+      /* 🌌 STARS BACKGROUND */
+      #stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(white 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+        animation: twinkle 5s infinite;
+        z-index: 0;
+      }
+      @keyframes twinkle { 50% { opacity: 0.6; } }
 
-/* 🔒 LOCK */
-#lock{
-  position:fixed;
-  inset:0;
-  background:#0f0c29;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-  text-align:center;
-  padding:20px;
-}
+      /* 🔒 LOCK SCREEN */
+      #lock {
+        position: fixed;
+        inset: 0;
+        background: #0f0c29;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        text-align: center;
+        padding: 20px;
+        transition: opacity 0.8s;
+      }
+      #lock input {
+        padding: 12px 20px;
+        border-radius: 30px;
+        border: none;
+        margin-top: 15px;
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
+        outline: none;
+      }
+      #lock button {
+        margin-top: 15px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        background: var(--pink);
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+      }
 
-#lock input{
-  padding:12px 20px;
-  border-radius:30px;
-  border:none;
-  margin-top:15px;
-  width:100%;
-  max-width:260px;
-  text-align:center;
-}
+      /* 📄 PAGES */
+      .page {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.95);
+        transition: 0.8s;
+        z-index: 10;
+        overflow-y: auto; /* Allows scrolling on small phones if content is long */
+      }
+      .page.active {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+      }
 
-#lock button{
-  margin-top:15px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:var(--pink);
-  color:white;
-  cursor:pointer;
-  font-weight:600;
-}
+      /* ⏳ COUNTDOWN */
+      #timer-box {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+        font-family: "Courier New", monospace;
+      }
+      .time-unit {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 55px;
+      }
+      .time-val {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--pink);
+      }
+      .time-label { font-size: 0.6rem; opacity: 0.8; }
 
-/* 📄 PAGES */
-.page{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  opacity:0;
-  visibility:hidden;
-  transform:scale(.95);
-  transition:.8s;
-  z-index:10;
-}
+      /* 📸 PHOTO & VIDEO FRAME */
+      .photo-frame {
+        background: white;
+        padding: 10px 10px 40px 10px;
+        border-radius: 4px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transform: rotate(-2deg);
+        max-width: 320px;
+        width: 90%;
+        margin: 0 auto;
+      }
+      .photo-frame img, .photo-frame video {
+        width: 100%;
+        max-height: 65vh; /* Prevents video from taking too much space */
+        object-fit: contain;
+        background: #000;
+        border-radius: 2px;
+        display: block;
+      }
+      .photo-caption {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: #ffb3c1;
+        font-style: italic;
+      }
 
-.page.active{
-  opacity:1;
-  visibility:visible;
-  transform:scale(1);
-}
+      /* 💌 LETTER STYLING */
+      .letter-paper {
+        background: #fffdf5;
+        color: #333;
+        padding: 40px 30px;
+        max-width: 500px;
+        width: 95%;
+        font-family: "Caveat", cursive;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        border-radius: 4px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        text-align: left;
+        position: relative;
+      }
 
-h1{
-  font-family:"Dancing Script",cursive;
-  font-size:clamp(2.2rem,6vw,3rem);
-  color:var(--pink);
-}
+      /* BUTTONS */
+      .btn {
+        margin-top: 25px;
+        padding: 12px 40px;
+        border: none;
+        border-radius: 50px;
+        background: var(--pink);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+      }
 
-p{
-  max-width:600px;
-  margin:10px auto;
-  line-height:1.6;
-  font-size:clamp(.95rem,3vw,1.1rem);
-}
+      /* ✨ ANIMATIONS */
+      .heartbeat { animation: beat 1.5s infinite; }
+      @keyframes beat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+      .flip-out { animation: flipOut 0.6s forwards; }
+      .flip-in { animation: flipIn 0.6s forwards; }
+      @keyframes flipOut { to { transform: rotateY(-90deg); opacity: 0; } }
+      @keyframes flipIn { from { transform: rotateY(90deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
 
-/* 📸 PHOTOS */
-.photo{
-  background:white;
-  padding:12px 12px 40px;
-  border-radius:4px;
-  max-width:320px;
-  width:90%;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
-}
+      #secret-container {
+        display: none;
+        animation: fadeIn 1s forwards;
+        margin-top: 20px;
+        width: 100%;
+      }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-.photo img{
-  width:100%;
-  height:340px;
-  object-fit:cover;
-  border-radius:2px;
-}
+    </style>
+  </head>
 
-/* 📖 DIARY LETTER */
-.letter{
-  position:relative;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      #fffdf5,
-      #fffdf5 26px,
-      #f1e3b0 27px
-    );
-  color:#333;
-  padding:45px 30px;
-  max-width:520px;
-  width:95%;
-  font-family:"Dancing Script",cursive;
-  font-size:clamp(1.3rem,4vw,1.7rem);
-  line-height:26px;
-  border-radius:6px;
-  box-shadow:inset 0 0 0 2px #e7d3a3,5px 5px 25px rgba(0,0,0,.4);
-  text-align:left;
-  min-height:200px;
-}
+  <body>
+    <div id="stars"></div>
+    <audio id="music" src="music.mp3" loop></audio>
 
-.letter::before{
-  content:"❤️ 🌸";
-  position:absolute;
-  top:10px;
-  left:15px;
-}
-.letter::after{
-  content:"🌸 🌹 ❤️";
-  position:absolute;
-  bottom:10px;
-  right:15px;
-}
+    <div id="lock">
+      <h1 class="heartbeat" style="font-family:'Dancing Script'; color:var(--pink)">Hi My Chikku ❤️</h1>
+      <p>A message from your Alien 🛸</p>
+      <input id="pwd" placeholder="Enter your name" />
+      <button onclick="unlock()">Unlock 💖</button>
+      <p id="msg" style="margin-top:10px; color:#ffb3c1; min-height:20px"></p>
+    </div>
 
-/* 💓 HEARTBEAT */
-.heartbeat{
-  animation:beat var(--beat) infinite;
-}
-@keyframes beat{
-  0%{transform:scale(1)}
-  25%{transform:scale(1.1)}
-  40%{transform:scale(1)}
-  60%{transform:scale(1.15)}
-  100%{transform:scale(1)}
-}
+    <div class="page active" id="p1">
+      <h1 class="heartbeat" style="font-family:'Dancing Script'; font-size:3rem" id="greetTitle">Wait for it...</h1>
+      <p id="greetText">The magic begins at midnight.</p>
+      
+      <div id="timer-box">
+        <div class="time-unit"><span class="time-val" id="d">00</span><span class="time-label">DAYS</span></div>
+        <div class="time-unit"><span class="time-val" id="h">00</span><span class="time-label">HRS</span></div>
+        <div class="time-unit"><span class="time-val" id="m">00</span><span class="time-label">MIN</span></div>
+        <div class="time-unit"><span class="time-val" id="s">00</span><span class="time-label">SEC</span></div>
+      </div>
 
-/* BUTTON */
-.btn{
-  margin-top:25px;
-  padding:12px 40px;
-  border:none;
-  border-radius:50px;
-  background:var(--pink);
-  color:white;
-  font-size:1.05rem;
-  cursor:pointer;
-}
+      <button id="openBtn" class="btn" style="display:none" onclick="go(2)">Open Diary →</button>
+    </div>
 
-/* FINAL YEAR */
-.big{
-  font-size:clamp(3.5rem,10vw,5rem);
-  font-weight:900;
-  background:linear-gradient(#fff,var(--pink));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    <div class="page" id="p2">
+      <div class="photo-frame"><img src="1.jpg" alt="Memory 1" /></div>
+      <p class="photo-caption">It started with a moment...</p>
+      <button class="btn" onclick="go(3)">Read 💌</button>
+    </div>
 
-/* 📱 MOBILE TWEAKS */
-@media(max-width:480px){
-  .photo img{height:280px}
-}
-</style>
-</head>
+    <div class="page" id="p3">
+      <div class="letter-paper" id="t1"></div>
+      <button class="btn" onclick="go(4)">Next Memory →</button>
+    </div>
 
-<body>
+    <div class="page" id="p4">
+      <div class="photo-frame"><img src="2.jpg" alt="Memory 2" /></div>
+      <p class="photo-caption">...and became my favorite story.</p>
+      <button class="btn" onclick="go(5)">Read 💌</button>
+    </div>
 
-<div id="stars"></div>
+    <div class="page" id="p5">
+      <div class="letter-paper" id="t2"></div>
+      <button class="btn" onclick="go(6)">Next Memory →</button>
+    </div>
 
-<!-- 🔒 LOCK -->
-<div id="lock">
-  <h1 class="heartbeat">Hi My Chikku ❤️</h1>
-  <p id="lockMsg">From your Alien 🛸</p>
-  <input id="pwd" placeholder="Enter your name">
-  <button onclick="unlock()">Unlock 💖</button>
-  <p id="timeMsg" style="margin-top:10px;color:#ffb3c1"></p>
-</div>
+    <div class="page" id="p6">
+      <div class="photo-frame"><img src="3.jpg" alt="Memory 3" /></div>
+      <p class="photo-caption">I want forever with you.</p>
+      <button class="btn" onclick="go(7)">Final Letter 💌</button>
+    </div>
 
-<audio id="music" src="music.mp3" loop></audio>
+    <div class="page" id="p7">
+      <div class="letter-paper" id="t3"></div>
+      <button class="btn" onclick="go(8)">Tap for Surprise ✨</button>
+    </div>
 
-<!-- PAGES -->
-<div class="page active" id="p1">
-  <h1 class="heartbeat">Hey Chikku…</h1>
-  <p>I made this just for you.</p>
-  <div id="countdown"></div>
-  <button class="btn" onclick="go(2)">Open Diary →</button>
-</div>
+    <div class="page" id="p8">
+      <h1 class="heartbeat" style="font-size: 4rem; cursor: pointer;" onclick="revealSurprise()">2026</h1>
+      <p>Happy New Year Chikku 😘❤️</p>
+      <p style="font-size:0.8rem; opacity:0.7">(Tap 2026 to see your gift)</p>
+      
+      <div id="secret-container">
+         <div class="photo-frame" style="transform: rotate(2deg);">
+            <video id="surpriseVideo" src="video.mp4" controls playsinline></video>
+         </div>
+         <p style="font-family:'Dancing Script'; font-size:1.5rem; margin-top:15px; color:var(--pink)">
+            You are my greatest gift.<br>I love you endlessly.
+         </p>
+      </div>
+      
+      <button class="btn" onclick="go(1)">Replay 💖</button>
+    </div>
 
-<div class="page" id="p2">
-  <div class="photo"><img src="1.jpg"></div>
-  <p>It started with a moment.</p>
-  <button class="btn" onclick="go(3)">Read 💌</button>
-</div>
+    <script>
+      const PASSWORD = "chikku";
+      const TARGET_DATE = new Date("Jan 1, 2025 00:00:00").getTime();
 
-<div class="page" id="p3">
-  <div class="letter" id="t1"></div>
-  <button class="btn" onclick="go(4)">Next →</button>
-</div>
+      function unlock() {
+        if(document.getElementById("pwd").value.toLowerCase() !== PASSWORD) {
+          document.getElementById("msg").innerText = "Wrong name 😏";
+          return;
+        }
+        document.getElementById("lock").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("lock").style.display = "none";
+          playMusic();
+          startCountdown();
+        }, 800);
+      }
 
-<div class="page" id="p4">
-  <div class="photo"><img src="2.jpg"></div>
-  <p>And became my favorite story.</p>
-  <button class="btn" onclick="go(5)">Read 💌</button>
-</div>
+      function playMusic() {
+        const m = document.getElementById("music");
+        m.volume = 0.4; 
+        m.play().catch(e => console.log("Audio waiting for interaction"));
+      }
 
-<div class="page" id="p5">
-  <div class="letter" id="t2"></div>
-  <button class="btn" onclick="go(6)">Next →</button>
-</div>
+      function startCountdown() {
+        const timer = setInterval(() => {
+          const now = new Date().getTime();
+          const dist = TARGET_DATE - now;
 
-<div class="page" id="p6">
-  <div class="photo"><img src="3.jpg"></div>
-  <p>I want forever.</p>
-  <button class="btn" onclick="go(7)">Final 💌</button>
-</div>
+          if (dist < 0) {
+            clearInterval(timer);
+            document.getElementById("timer-box").style.display = "none";
+            document.getElementById("openBtn").style.display = "inline-block";
+            document.getElementById("greetTitle").innerText = "Hey Chikku…";
+            document.getElementById("greetText").innerText = "I made this just for you.";
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+          } else {
+            const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+            const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((dist % (1000 * 60)) / 1000);
+            document.getElementById("d").innerText = d < 10 ? "0"+d : d;
+            document.getElementById("h").innerText = h < 10 ? "0"+h : h;
+            document.getElementById("m").innerText = m < 10 ? "0"+m : m;
+            document.getElementById("s").innerText = s < 10 ? "0"+s : s;
+          }
+        }, 1000);
+      }
 
-<div class="page" id="p7">
-  <div class="letter" id="t3"></div>
-  <button class="btn" onclick="go(8)">Surprise ✨</button>
-</div>
+      function go(n) {
+        const curr = document.querySelector(".page.active");
+        const next = document.getElementById("p" + n);
+        
+        curr.classList.add("flip-out");
+        setTimeout(() => {
+          curr.classList.remove("active", "flip-out");
+          next.classList.add("active", "flip-in");
+          setTimeout(() => next.classList.remove("flip-in"), 600);
+          
+          if(n===3) typeWriter("t1", "My dearest Chikku,\n\nSome people enter our lives quietly and still change something deep inside us. Knowing you taught me patience, kindness, and how small moments can carry more meaning than grand words ever could.");
+          if(n===5) typeWriter("t2", "Your smile has a way of calming noisy days and making ordinary moments feel lighter. It reminds me that happiness does not always arrive loudly, sometimes it comes softly, just like you did.");
+          if(n===7) typeWriter("t3", "As 2026 begins, I genuinely wish you peace, strength, and growth. No matter where life takes us, I hope this year treats you gently. You are my forever, Chikku ❤️\n\n— Your Alien 🛸");
+        }, 600);
+      }
 
-<div class="page" id="p8">
-  <div class="big heartbeat" id="year">2026</div>
-  <h1>Happy New Year ❤️</h1>
-  <p>I love you endlessly.</p>
-  <div id="secret" style="display:none;margin-top:10px;font-family:'Dancing Script',cursive;color:#ffb3c1">
-    You are my forever, Chikku ❤️<br>— Alien 🛸
-  </div>
-  <button class="btn" onclick="go(1)">Replay 💖</button>
-</div>
+      function typeWriter(id, text) {
+        const el = document.getElementById(id);
+        if(el.getAttribute("data-typed")) return;
+        el.setAttribute("data-typed", "true");
+        el.innerHTML = "";
+        let i = 0;
+        function type() {
+          if (i < text.length) {
+            el.innerHTML += text.charAt(i) === "\n" ? "<br/>" : text.charAt(i);
+            i++;
+            setTimeout(type, 35);
+          }
+        }
+        type();
+      }
 
-<script>
-/* 🔧 CONFIG */
-const PASSWORD="chikku";
-const TEST_MODE=true;
-const SONG_BPM=72;
-
-/* 💓 BPM SYNC */
-document.documentElement.style.setProperty(
-  "--beat",
-  `${72/SONG_BPM}s`
-);
-
-/* 🔒 UNLOCK */
-function unlock(){
-  if(pwd.value.toLowerCase()!==PASSWORD){
-    timeMsg.innerText="Wrong name 😏";
-    return;
-  }
-  lock.style.display="none";
-  fadeMusic();
-}
-
-/* 🎶 MUSIC */
-function fadeMusic(){
-  music.volume=0;
-  music.play();
-  let v=0;
-  setInterval(()=>{v=Math.min(v+.03,.8);music.volume=v},150);
-}
-
-/* NAV */
-function go(n){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
-
-  if(n===3) type("t1","My dearest Chikku,\nYou changed my life just by being you.");
-  if(n===5) type("t2","Your smile is my safe place. Always.");
-  if(n===7) type("t3","2026 begins with you. Forever.");
-}
-
-function type(id,text){
-  const el=document.getElementById(id);
-  el.innerText="";
-  let i=0;
-  const t=setInterval(()=>{
-    el.innerText+=text[i++]||"";
-    if(i>=text.length)clearInterval(t);
-  },40);
-}
-
-/* 🎆 EGG */
-let taps=0;
-year.onclick=()=>{if(++taps===2){secret.style.display="block";confetti({particleCount:120})}};
-</script>
-
-</body>
+      function revealSurprise() {
+        const secret = document.getElementById("secret-container");
+        if(secret.style.display === "block") return;
+        secret.style.display = "block";
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+      }
+    </script>
+  </body>
 </html>
